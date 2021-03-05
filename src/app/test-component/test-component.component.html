@@ -1,0 +1,63 @@
+<!-- <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="fullName"> Full Name: </label>
+    <div
+      class="form-control"
+      [ngClass]="{ 'is-loading': registrationFControl['fullName'].pending }"
+    >
+      <input
+        class="form-control"
+        type="fullName"
+        id="fullName"
+        formControlName="fullName"
+        [ngClass]="{
+          'is-invalid': registrationFControl['fullName'].errors?.userName
+        }"
+      />
+      <div *ngIf="registrationFControl['fullName'].errors?.userName" class="invalid-feedback">
+        This User Name Already Taken!
+      </div>
+    </div>
+  </div>
+  <div>
+    <button type="submit">Submit</button>
+  </div>
+</form> -->
+
+<!-- working form below-->
+<!-- <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Username: </label>
+    <div [ngClass]="{ 'is-loading': registrationFControl['fullName'].pending }">
+      <input
+        [ngClass]="{
+          'is-danger': registrationFControl['fullName'].hasError(
+            'fullName',
+            'any'
+          )
+        }"
+        formControlName="fullName"
+        type="username"
+        placeholder="Your username"
+      />
+    </div>
+    <div
+      class="has-text-danger"
+      *ngIf="registrationFControl['fullName'].errors?.userName"
+    >
+      This username is already taken!
+    </div>
+  </div>
+  <div>
+    <button type="submit">Submit</button>
+  </div>
+</form> -->
+
+<form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="fullName">
+      Full Name:
+      <input type="text" formControlName="fullName" id="fullName" />
+    </label>
+  </div>
+</form>

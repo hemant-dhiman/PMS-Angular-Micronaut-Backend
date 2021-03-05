@@ -1,0 +1,30 @@
+<h2>Welcome {{ currentUser.userName }}</h2>
+<div>
+  <div style="float: left; padding: 10px; margin: 10px;">
+    <h3>Users profile</h3>
+    Users Id:
+    <p>{{ currentUser.id }}</p>
+    users Full Name:
+    <p>{{ currentUser.fullName }}</p>
+    Users User Name:
+    <p>{{ currentUser.userName }}</p>
+    Users Email:
+    <p>{{ currentUser.email }}</p>
+    Users Password
+    <p>{{ currentUser }}</p>
+  </div>
+
+  <div style="float: left; padding: 10px; margin: 10px;">
+    <h3>{{ currentUser.fullName }} Address</h3>
+    <p>{{ currentUser.address.line1 }}</p>
+    <p>{{ currentUser.address.line2 }}</p>
+    <p>{{ currentUser.address.district }}</p>
+    <p>{{ currentUser.address.state }}</p>
+    <p>{{ currentUser.address.pinCode }}</p>
+  </div>
+
+  <p>
+    <a [routerLink]="['/login']" (click)="logout()">Logout</a>
+    <a [routerLink]="['/user-update']"> Update Details</a>
+  </p>
+</div>

@@ -1,0 +1,53 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div
+      class="form-group"
+      style="float: left; border: 1px solid white; margin: 10px; padding: 20px"
+    >
+      <div class="form-group">
+        <h2>Login</h2>
+        <label for="userName">
+          User Name:
+          <input
+            type="text"
+            class="form-control"
+            id="userName"
+            formControlName="userName"
+            [ngClass]="{ 'is-invalid': submitted && f.userName.errors }"
+          />
+          <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+            <div *ngIf="f.userName.errors.required">User Name is required</div>
+            <div *ngIf="f.userName.errors.minlength">
+              User Name must be at least 5 characters
+            </div>
+            <div *ngIf="f.userName.errors.maxlength">
+              User Name must be less than 20 characters
+            </div>
+          </div>
+        </label>
+      </div>
+  
+      <div class="form-group">
+        <label for="password">
+          Password:
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+          />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">
+              Password must be at least 5 characters
+            </div>
+          </div>
+        </label>
+      </div>
+  
+      <button [disabled]="loading" type="submit" class="btn btn-success">
+        Login
+      </button>
+    </div>
+  </form>
+  
