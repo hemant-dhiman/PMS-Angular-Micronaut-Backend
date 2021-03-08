@@ -15,9 +15,12 @@ import { HomeModule } from './home/home.module';
 import { UserUpdateModule } from './user-update/user-update.module';
 import { TestComponentModule } from './test-component/test-component.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { PetViewModule } from './pet-view/pet-view.module';
 
 @NgModule({
-  declarations: [AppComponent, AlertComponent],
+  declarations: [AppComponent, NavBarComponent, AlertComponent],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginModule,
     RegisterModule,
     PetEntryModule,
+    PetViewModule,
     HomeModule,
     UserUpdateModule,
     TestComponentModule,
@@ -38,11 +42,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       useClass: JwtInterceptor,
       multi: true,
     },
-    {
+/*     {
       provide: HTTP_INTERCEPTORS,
       useClass: BackEnd,
       multi: true,
-    },
+    }, */
   ],
   bootstrap: [AppComponent],
 })

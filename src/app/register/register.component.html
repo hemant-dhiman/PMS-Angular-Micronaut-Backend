@@ -6,13 +6,13 @@
             <h1 class="text-center pt-3 text-secondary">Registration Form</h1>
               <div class="form-group">
                 <label class="col-form-label">Full Name:</label>
-                <input formControlName="fullName" type="text" class="form-control">
-                <small *ngIf="invalidInput('fullName')" class="text-danger">{{fullNameErrorMessage()}}</small> 
+                <input formControlName="full_name" type="text" class="form-control">
+                <small *ngIf="invalidInput('full_name')" class="text-danger">{{fullNameErrorMessage()}}</small> 
               </div>
               <div class="form-group">
                 <label class="col-form-label">User Name:</label>
-                <input formControlName="userName" type="text" class="form-control" >
-                <small *ngIf="invalidInput('userName')" class="text-danger">{{userNameErrorMessage()}}</small>
+                <input formControlName="user_name" type="text" class="form-control" >
+                <small *ngIf="invalidInput('user_name')" class="text-danger">{{userNameErrorMessage()}}</small>
                 <!-- <small *ngIf="userName.getError('userName')" class="text-danger">User Name '{{userName.value}}' is Already in Used</small> -->
               </div>
               <div class="form-group">
@@ -50,8 +50,8 @@
                 </div>
                 <div class="form-group">
                   <label class="col-form-label">Pin Code:</label>
-                  <input formControlName="pinCode" type="email" class="form-control">
-                  <small *ngIf="invalidAddressInput('pinCode')" class="text-danger">{{pincodeErrorMessage()}}</small> 
+                  <input formControlName="pin_code" type="email" class="form-control">
+                  <small *ngIf="invalidAddressInput('pin_code')" class="text-danger">{{pincodeErrorMessage()}}</small> 
                 </div>
               </div>
               <button (click)="onSubmit()" [disabled]="registerForm.invalid" type="button" class="btn btn-primary">Register</button>

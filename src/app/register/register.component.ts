@@ -29,11 +29,11 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {}
 
-  get fullName() {
-    return this.registerForm.get('fullName');
+  get full_name() {
+    return this.registerForm.get('full_name');
   }
-  get userName() {
-    return this.registerForm.get('userName');
+  get user_name() {
+    return this.registerForm.get('user_name');
   }
   get password() {
     return this.registerForm.get('password');
@@ -59,8 +59,8 @@ export class RegisterComponent implements OnInit {
   get state() {
     return this.addressFormControls.get('state');
   }
-  get pinCode() {
-    return this.addressFormControls.get('pinCode');
+  get pin_code() {
+    return this.addressFormControls.get('pin_code');
   }
 
   ngOnInit(): void {
@@ -70,7 +70,8 @@ export class RegisterComponent implements OnInit {
     //   .subscribe(console.log);
 
     this.registerForm = this.formBuilder.group({
-      fullName: [
+      id:[''],
+      full_name: [
         '',
         [
           Validators.required,
@@ -78,7 +79,7 @@ export class RegisterComponent implements OnInit {
           Validators.maxLength(30),
         ],
       ],
-      userName: [
+      user_name: [
         '',
         [
           Validators.required,
@@ -109,7 +110,7 @@ export class RegisterComponent implements OnInit {
         line2: ['', Validators.required],
         district: ['', Validators.required],
         state: ['', Validators.required],
-        pinCode: [
+        pin_code: [
           '',
           [
             Validators.required,
@@ -122,11 +123,14 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if (this.registerForm.valid) {
+      console.log(this.registerForm.value);
+      //this.usersService.getUserDetails().subscribe();
       this.usersService
-        .register(this.registerForm.value)
-        .pipe(first())
+      .demoRegister(this.registerForm.value)
+      .pipe(first())
         .subscribe(
           (data) => {
+            //localStorage.setItem('response',JSON.stringify(data));
             this.alertService.success('Registration successful', true);
             this.router.navigate(['/login']);
           },
@@ -139,12 +143,12 @@ export class RegisterComponent implements OnInit {
 
   userNameValidator(control: AbstractControl) {
     return new Promise((resolve, reject) => {
-      this.usersService.getAllUserNames(control.value).subscribe(
+      this.usersService.demoGetAllUserNames(control.value).subscribe(
         () => {
           resolve(null);
         },
-        () => {
-          resolve({ userName: true });
+        (error) => {
+          resolve({ user_name: true });
         }
       );
     });
@@ -159,25 +163,25 @@ export class RegisterComponent implements OnInit {
   }
 
   fullNameErrorMessage() {
-    return this.fullName.hasError('required')
+    return this.full_name.hasError('required')
       ? 'Full Name required!'
-      : this.fullName.hasError('minlength')
+      : this.full_name.hasError('minlength')
       ? 'Full Name Should be minimum of 5 Characters'
-      : this.fullName.hasError('maxlength')
+      : this.full_name.hasError('maxlength')
       ? 'Full Name Should be minimum of 30 Characters'
       : '';
   }
 
   userNameErrorMessage() {
-    return this.userName.hasError('required')
+    return this.user_name.hasError('required')
       ? 'User Name required!'
-      : this.userName.hasError('minlength')
+      : this.user_name.hasError('minlength')
       ? 'User Name Should be minimum of 5 Characters'
-      : this.userName.hasError('maxlength')
+      : this.user_name.hasError('maxlength')
       ? 'User Name Should be minimum of 25 Characters'
-      : this.userName.hasError('userName')
+      : this.user_name.hasError('user_name')
       ? 'An Account with this email already exists.'
-      : this.userName.hasError('pattern')
+      : this.user_name.hasError('pattern')
       ? "Not A Valid User Name!" 
       : '';
   }
@@ -229,9 +233,9 @@ export class RegisterComponent implements OnInit {
   }
 
   pincodeErrorMessage() {
-    return this.pinCode.hasError('required')
+    return this.pin_code.hasError('required')
       ? 'Pin Code required'
-      : this.pinCode.hasError('pattern')
+      : this.pin_code.hasError('pattern')
       ? 'Please enter a 6 digit Pin Code'
       : '';
   }

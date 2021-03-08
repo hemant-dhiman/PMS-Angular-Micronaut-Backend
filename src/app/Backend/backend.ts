@@ -17,8 +17,6 @@ export class BackEnd implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
     ): Observable<HttpEvent<any>> {
-    let userNames: string[] = new Array();
-    let userEmails: string[] = new Array();
     let users: Users[] = JSON.parse(localStorage.getItem('users')) || [];
     
     return of(null)
@@ -31,7 +29,7 @@ export class BackEnd implements HttpInterceptor {
           ) {
             let filteredUsers = users.filter((user) => {
               return (
-                user.userName === request.body.userName &&
+                user.user_name === request.body.userName &&
                 user.password === request.body.password
               );
             });
@@ -40,9 +38,9 @@ export class BackEnd implements HttpInterceptor {
               let user = filteredUsers[0];
               let body = {
                 id: user.id,
-                fullName: user.fullName,
+                fullName: user.full_name,
                 email: user.email,
-                userName: user.userName,
+                userName: user.user_name,
                 address: user.address,
                 token: '12345-6789-1011',
               };
@@ -54,6 +52,7 @@ export class BackEnd implements HttpInterceptor {
             }
           }
 
+          console.log(request.url);
           //get all users
           if (request.url.endsWith('/users') && request.method === 'GET') {
             if (
@@ -73,7 +72,7 @@ export class BackEnd implements HttpInterceptor {
             let newUser = request.body;
             //validation
              let duplicateUser = users.filter((user) => {
-              return user.userName === newUser;
+              return user.user_name === newUser;
             }).length;
 
             if (duplicateUser) {
@@ -135,7 +134,7 @@ export class BackEnd implements HttpInterceptor {
             let newUser = request.body;
             //validation
             let duplicateUser = users.filter((user) => {
-              return user.userName === newUser.userName;
+              return user.user_name === newUser.userName;
             }).length;
 
             if (duplicateUser) {
@@ -167,13 +166,13 @@ export class BackEnd implements HttpInterceptor {
 
             for (let index = 0; index < users.length; index++) {
               const element = users[index];
-              if (element.userName == newUser.userName) {
+              if (element.user_name == newUser.userName) {
                 users.splice(index, 1);
                 break;
               }
             }
 
-            if (this.currentUser.userName === newUser.userName) {
+            if (this.currentUser.user_name === newUser.userName) {
               newUser.id = this.currentUser.id;
               localStorage.removeItem('currentUser');
               users.push(newUser);
@@ -212,6 +211,10 @@ export class BackEnd implements HttpInterceptor {
               });
             }
           }
+          /* if (request.url.endsWith('http://localhost:8080/pms/user/details') && request.method === 'GET'){
+            console.log(request.url);
+            } */
+
 
           return next.handle(request);
         })

@@ -78,9 +78,10 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     this.usersService
-      .login(
+      .demoLogin(
         this.loginFormControl.get('userName').value,
         this.loginFormControl.get('password').value
+        //'HD1234','12345678'
       )
       .pipe(first())
       .subscribe(

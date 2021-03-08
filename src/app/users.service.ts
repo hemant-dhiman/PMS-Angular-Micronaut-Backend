@@ -3,11 +3,14 @@ import { Users } from './users/Users';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, of, } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Pets } from './pets/pets';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
+
+  headers: HttpHeaders;
 
   constructor(private http: HttpClient) {}
 
@@ -19,12 +22,28 @@ export class UsersService {
     return this.http.get(`/users/` + id);
   }
 
-  register(user: Users) {
-    //console.log(user);
-    return this.http.post(`/users/register`, user);
+  getUserDetails(){
+    return this.http.get<Users>(`http://localhost:8080/pms/user/details`);
+
   }
 
-  getAllUserNames(userName: string){
+  demoRegister(user: Users) {
+    return this.http.post(`http://localhost:8080/pms/user/register`, user);
+  }
+
+  demoGetAllUserNames(user_name: string){
+    return this.http.post(`http://localhost:8080/pms/user-names`,{user_name: user_name});
+  }
+
+  petEntry(pet: Pets){
+    return this.http.post(`http://localhost:8080/pms/pet`, pet);
+  }
+
+  getPets(){
+    return this.http.get<Pets[]>(`http://localhost:8080/pms/pet`);
+  }
+
+   getAllUserNames(userName: string){
     return this.http.post(`/user-names`, userName);
   }
 
@@ -41,15 +60,15 @@ export class UsersService {
     return this.http.delete(`/users/` + id);
   }
 
-  login(userName: string, password: string) {
+  demoLogin(username: string, password: string) {
     return this.http
-      .post<any>(`/users/authenticate`, {
-        userName: userName,
+      .post<any>(`http://localhost:8080/login`, {
+        username: username,
         password: password,
       })
       .pipe(
         map((user) => {
-          if (user && user.token) {
+          if (user && user.access_token) {
             localStorage.setItem('currentUser', JSON.stringify(user));
           }
           return user;
@@ -59,6 +78,7 @@ export class UsersService {
 
   logout(): Observable<any> {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('ownerId');
     return of(new HttpResponse({ status: 200 }));
   }
 

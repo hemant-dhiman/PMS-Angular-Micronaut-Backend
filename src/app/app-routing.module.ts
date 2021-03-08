@@ -24,6 +24,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'pet-view',
+    loadChildren: () =>
+      import('./pet-view/pet-view.module').then((m) => m.PetViewModule),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
     canActivate: [AuthGuard],

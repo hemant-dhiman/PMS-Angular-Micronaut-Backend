@@ -1,97 +1,35 @@
-<h1 style="text-align: center">Pet Entry</h1>
-<form [formGroup]="petForm" (ngSubmit)="onSubmit(petForm.value)">
-  <div
-    class="form-group"
-    style="float: left; border: 1px solid white; margin: 10px; padding: 20px"
-  >
-    <!--petName control-->
-    <div class="form-group">
-      <label for="petName">
-        Pet Name:
-        <input
-          type="text"
-          formControlName="petName"
-          id="petName"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && getPet['petName'].invalid }"
-        />
-        <div
-          *ngIf="submitted && getPet['petName'].invalid"
-          class="invalid-feedback"
-        >
-          <div *ngIf="getPet['petName'].hasError('required')">
-            Pet Name is required
+<ng-container *ngIf="currentUser">
+  <div class="container pt-5">
+    <div class="row justify-content-sm-center pt-5">
+      <div class="col-sm-6 shadow round pb-3">
+        <form [formGroup]="petForm">
+          <h1 class="text-center pt-3 text-secondary">Pet Entry Form for {{currentUser.user_name}}</h1>
+          <div class="form-group">
+            <label class="col-form-label">Pet Name:</label>
+            <input formControlName="name" type="text" class="form-control"/>
+            <small *ngIf="invalidInput('name')" class="text-danger">{{nameErrorMessage()}}</small>
           </div>
-        </div>
-      </label>
+          
+          <div class="form-group">
+            <label class="col-form-label">Pet Species:</label>
+            <input formControlName="species" type="text" class="form-control"/>
+            <small *ngIf="invalidInput('species')" class="text-danger">{{speciesErrorMessage()}}</small>
+          </div>
+          
+          <div class="form-group">
+            <label class="col-form-label">Pet breed:</label>
+            <input formControlName="breed" type="text" class="form-control"/>
+            <small *ngIf="invalidInput('breed')" class="text-danger">{{breedErrorMessage()}}</small>
+          </div>
+          
+          <div class="form-group">
+            <label class="col-form-label">Pet color:</label>
+            <input formControlName="color" type="text" class="form-control"/>
+            <small *ngIf="invalidInput('color')" class="text-danger">{{colorErrorMessage()}}</small>
+          </div>
+          <button (click)="onSubmit()" [disabled]="petForm.invalid" type="button" class="btn btn-primary">Enter Pet</button>
+        </form>
+      </div>
     </div>
-
-    <!--petSpecies control-->
-    <div class="form-group">
-        <label for="petSpecies">
-          Pet Species:
-          <input
-            type="text"
-            formControlName="petSpecies"
-            id="petSpecies"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && getPet['petSpecies'].invalid }"
-          />
-          <div
-            *ngIf="submitted && getPet['petSpecies'].invalid"
-            class="invalid-feedback"
-          >
-            <div *ngIf="getPet['petSpecies'].hasError('required')">
-              Pet Species is required
-            </div>
-          </div>
-        </label>
-      </div>
-
-      <!--petBreed control-->
-    <div class="form-group">
-        <label for="petBreed">
-          Pet Breed:
-          <input
-            type="text"
-            formControlName="petBreed"
-            id="petBreed"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && getPet['petBreed'].invalid }"
-          />
-          <div
-            *ngIf="submitted && getPet['petBreed'].invalid"
-            class="invalid-feedback"
-          >
-            <div *ngIf="getPet['petBreed'].hasError('required')">
-              Pet Breed is required
-            </div>
-          </div>
-        </label>
-      </div>
-
-       <!--petColor control-->
-    <div class="form-group">
-        <label for="petColor">
-          Pet Color:
-          <input
-            type="text"
-            formControlName="petColor"
-            id="petColor"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && getPet['petColor'].invalid }"
-          />
-          <div
-            *ngIf="submitted && getPet['petColor'].invalid"
-            class="invalid-feedback"
-          >
-            <div *ngIf="getPet['petColor'].hasError('required')">
-              Pet Color is required
-            </div>
-          </div>
-        </label>
-      </div>
-
-      <button type="submit" class="btn btn-success">Submit</button>
-    </div>
-</form>
+  </div>
+</ng-container>

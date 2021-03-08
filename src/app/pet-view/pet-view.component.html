@@ -1,0 +1,13 @@
+<ng-container *ngIf="currentUsersPet">
+
+    <div *ngFor="let pet of currentUsersPet; let petIndex=index" >
+        <h2>Pet {{petIndex+1}}</h2>
+        <p>Pet id: {{pet.id}}</p>
+        <p>Pets owner id: {{pet.o_id}}</p>
+        <p>Pet name: {{pet.name}}</p>
+        <p>Pet species: {{pet.species}}</p>
+        <p>Pet breed: {{pet.breed}}</p>
+        <p>Pet color: {{pet.color}}</p>
+    </div>
+
+</ng-container>

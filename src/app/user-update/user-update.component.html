@@ -1,255 +1,64 @@
-<h1 style="text-align: center;" >Update User Details</h1>
-<form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-  <div
-  class="form-group"
-  style="float: left; border: 1px solid white; margin: 10px; padding: 20px"
-  >
-  <div style=" float:left; border: 1px solid white; margin: 10px; padding: 20px">
-    <h3>User Details</h3>
-  <!--full name control-->
-  <div class="form-group">
-  <label for="fullName">
-    Full Name:
-    <input
-      type="text"
-      formControlName="fullName"
-      id="fullName"
-      class="form-control"
-      [ngClass]="{ 'is-invalid': submitted && getUser['fullName'].invalid }"
-    />
-    <div
-      *ngIf="submitted && getUser['fullName'].invalid"
-      class="invalid-feedback"
-    >
-      <div *ngIf="getUser['fullName'].hasError('required')">
-        First Name is required
+<div class="container pt-5">
+  <div class="row justify-content-sm-center pt-5">
+      <div class="col-sm-6 shadow round pb-3" >
+        <form [formGroup]="updateForm">
+
+            <h1 class="text-center pt-3 text-secondary">Update {{currentUser.user_name}} Details</h1>
+              <div class="form-group">
+                <label class="col-form-label">Full Name:</label>
+                <input formControlName="full_name" type="text" class="form-control">
+                <small *ngIf="invalidInput('full_name')" class="text-danger">{{fullNameErrorMessage()}}</small> 
+              </div>
+              <!-- <div class="form-group">
+                <label class="col-form-label">User Name:</label>
+                <input formControlName="userName" type="text" class="form-control" >
+                <small *ngIf="invalidInput('userName')" class="text-danger">{{userNameErrorMessage()}}</small>
+              </div> -->
+              <div class="form-group">
+                <label class="col-form-label">Password:</label>
+                <input formControlName="password" type="password" class="form-control" >
+                <small *ngIf="invalidInput('password')" class="text-danger">{{passwordErrorMessage()}}</small>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Email ID:</label>
+                <input formControlName="email" type="email" class="form-control" >
+                <small *ngIf="invalidInput('email')" class="text-danger">{{emailErrorMessage()}}</small> 
+              </div>
+
+              <div formGroupName="address" class="form-group">
+                <h1 class="text-center pt-3 text-secondary">Address</h1>
+                <div class="form-group">
+                  <label class="col-form-label">Line One:</label>
+                  <input formControlName="line1" type="text" class="form-control" >
+                  <small *ngIf="invalidAddressInput('line1')" class="text-danger">{{line1ErrorMessage()}}</small> 
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Line Two:</label>
+                  <input formControlName="line2" type="text" class="form-control" >
+                  <small *ngIf="invalidAddressInput('line2')" class="text-danger">{{line2ErrorMessage()}}</small> 
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">District:</label>
+                  <input formControlName="district" type="text" class="form-control" >
+                  <small *ngIf="invalidAddressInput('district')" class="text-danger">{{districtErrorMessage()}}</small> 
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">State:</label>
+                  <input formControlName="state" type="text" class="form-control" >
+                  <small *ngIf="invalidAddressInput('state')" class="text-danger">{{stateErrorMessage()}}</small> 
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Pin Code:</label>
+                  <input formControlName="pin_code" type="text" class="form-control">
+                  <small *ngIf="invalidAddressInput('pin_code')" class="text-danger">{{pincodeErrorMessage()}}</small> 
+                </div>
+              </div>
+            |
+              <button (click)="onSubmit()" [disabled]="updateForm.invalid" type="button" class="btn btn-primary">Update</button>
+            |
+              <button type="button" class="btn btn-secondry" routerLink="/home">Back</button>
+            |
+            </form>
       </div>
-      <div *ngIf="getUser['fullName'].hasError('minlength')">
-        First Name must be at least 5 characters
-      </div>
-      <div *ngIf="getUser['fullName'].hasError('maxlength')">
-        First Name must be at less than 30 characters
-      </div>
-    </div>
-  </label>
   </div>
-
-  <!-- user name control -->
-  <div class="form-group" [hidden]='true'>
-  <label for="userName">
-    User Name:
-    <input
-      type="text"
-      
-      formControlName="userName"
-      id="userName"
-      class="form-control"
-      [ngClass]="{ 'is-invalid': submitted && getUser['userName'].invalid }"
-    />
-    <div
-      *ngIf="submitted && getUser['userName'].invalid"
-      class="invalid-feedback"
-    >
-      <div *ngIf="getUser['userName'].hasError('required')">
-        User Name is required
-      </div>
-      <div *ngIf="getUser['userName'].hasError('minlength')">
-        User Name must be at least 5 characters
-      </div>
-      <div *ngIf="getUser['userName'].hasError('maxlength')">
-        User Name must be at less than 20 characters
-      </div>
-    </div>
-  </label>
-  </div>
-
-  <!--password control-->
-  <div class="form-group">
-    <label for="password">
-      Password:
-      <input
-        type="password"
-        formControlName="password"
-        id="password"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && getUser['password'].invalid }"
-      />
-      <div
-        *ngIf="submitted && getUser['password'].invalid"
-        class="invalid-feedback"
-      >
-        <div *ngIf="getUser['password'].hasError('required')">
-          Password is required
-        </div>
-        <div *ngIf="getUser['password'].hasError('minlength')">
-          Password must be at least 5 characters
-        </div>
-        <div *ngIf="getUser['password'].hasError('maxlength')">
-          Password must be at less than 20 characters
-        </div>
-      </div>
-    </label>
-    </div>
-
-    <!--email control-->
-  <div class="form-group">
-    <label for="email">
-      Email:
-      <input
-        type="email"
-        formControlName="email"
-        id="email"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && getUser['email'].invalid }"
-      />
-      <div
-        *ngIf="submitted && getUser['email'].invalid"
-        class="invalid-feedback"
-      >
-        <div *ngIf="getUser['email'].hasError('required')">
-          Email is required
-        </div>
-        <div *ngIf="getUser['email'].hasError('email')">
-          Please Enter Proper Email!
-        </div>
-      </div>
-    </label>
-    </div>
- 
 </div>
-
-
-
-  <!--Address controls-->
-  <div formGroupName="address" class="form-group" style=" float:left; border: 1px solid white; margin: 10px; padding: 20px" >
-    <h3>Address</h3>
-    <!--line 1-->
-    <div class="form-group">
-        <label for="line1">
-          Line One:
-          <input
-            type="text"
-            formControlName="line1"
-            id="line1"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && getAddress['line1'].invalid }"
-          />
-          <div
-            *ngIf="submitted && getAddress['line1'].invalid"
-            class="invalid-feedback"
-          >
-            <div *ngIf="getAddress['line1'].hasError('required')">
-              Line One is required
-            </div>
-          </div>
-        </label>
-        </div>
-
-
-        <!--line 2-->
-    <div class="form-group">
-      <label for="line2">
-        Line Two:
-        <input
-          type="text"
-          formControlName="line2"
-          id="line2"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && getAddress['line2'].invalid }"
-        />
-        <div
-          *ngIf="submitted && getAddress['line2'].invalid"
-          class="invalid-feedback"
-        >
-          <div *ngIf="getAddress['line2'].hasError('required')">
-            Line Two is required
-          </div>
-        </div>
-      </label>
-      </div>
-
-      <!--district-->
-    <div class="form-group">
-      <label for="district">
-        District:
-        <input
-          type="text"
-          formControlName="district"
-          id="district"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && getAddress['district'].invalid }"
-        />
-        <div
-          *ngIf="submitted && getAddress['district'].invalid"
-          class="invalid-feedback"
-        >
-          <div *ngIf="getAddress['district'].hasError('required')">
-            District is required
-          </div>
-        </div>
-      </label>
-      </div>
-
-
-      <!--State-->
-    <div class="form-group">
-      <label for="state">
-        State:
-        <input
-          type="text"
-          formControlName="state"
-          id="state"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && getAddress['state'].invalid }"
-        />
-        <div
-          *ngIf="submitted && getAddress['state'].invalid"
-          class="invalid-feedback"
-        >
-          <div *ngIf="getAddress['state'].hasError('required')">
-            State is required
-          </div>
-        </div>
-      </label>
-      </div>
-
-
-      <!--pincode-->
-    <div class="form-group">
-      <label for="pinCode">
-        Pin Code:
-        <input
-          type="text"
-          formControlName="pinCode"
-          id="pinCode"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && getAddress['pinCode'].invalid }"
-        />
-        <div
-          *ngIf="submitted && getAddress['pinCode'].invalid"
-          class="invalid-feedback"
-        >
-          <div *ngIf="getAddress['pinCode'].hasError('required')">
-            Pin Code is required
-          </div>
-          <div *ngIf="getAddress['pinCode'].hasError('minlength')">
-            Please Enter PinCode is of Minimum 6 Digit
-          </div>
-          <div *ngIf="getAddress['pinCode'].hasError('maxlength')">
-            Please Enter PinCode is of Maximum 6 Digit
-          </div>
-        </div>
-      </label>
-      </div>
-    </div>
-  
-    <div>
-
-      <button type="submit" class="btn btn-success">Update</button>
-    </div>
-
-</div>
-</form>
-
-
-

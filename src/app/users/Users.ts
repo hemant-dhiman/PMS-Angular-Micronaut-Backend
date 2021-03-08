@@ -8,8 +8,8 @@ export interface Users {
    * address
    */
   id: number;
-  fullName: string;
-  userName: string;
+  full_name: string;
+  user_name: string;
   email: string;
   password: string;
   address: Address;

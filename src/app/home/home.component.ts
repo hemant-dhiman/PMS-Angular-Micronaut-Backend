@@ -22,7 +22,12 @@ export class HomeComponent implements OnInit {
     private router: Router
   ) {
     //this.usersService.getAll().subscribe(console.log);
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    //this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.usersService.getUserDetails().subscribe(obj=>{
+      this.currentUser = obj;
+    }
+    );
+
   }
 
   ngOnInit(): void {

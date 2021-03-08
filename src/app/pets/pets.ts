@@ -7,10 +7,10 @@ export interface Pets{
       petBreed
       petColor
     */
-   ownerId: number;
-   petId: number;
-   petName: string;
-   petSpecies: string;
-   petBreed: string;
-   petColor: string;
+   id: string;
+   o_Id: string;
+   name: string;
+   species: string;
+   breed: string;
+   color: string;
 }
